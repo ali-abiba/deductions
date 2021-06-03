@@ -1,0 +1,13 @@
+Employee Benefits features:
+
+-Employers create accounts as users with email and password
+
+-Users can add employees and their dependants
+
+-Users can edit employee info or add dependants after creating employee
+
+-Dashboad screen for each user:
+	- list of employees, clicking will take to employee detail page. Paginated.
+	- Display total employees deductions
+	- Display monthly employee deductions
+	- Display different visualizations of data
