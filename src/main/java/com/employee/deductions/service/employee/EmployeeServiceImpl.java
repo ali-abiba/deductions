@@ -21,6 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final Long EMPLOYEE_DEDUCTION = 1000L;
     private final Long DEPENDANT_DEDUCTION = 500L;
     private final char DISCOUNT_ID = 'A';
+
     @Autowired
     EmployeeRepository employeeRepository;
 
