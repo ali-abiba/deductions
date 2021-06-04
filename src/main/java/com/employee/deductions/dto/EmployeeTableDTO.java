@@ -9,7 +9,7 @@ public class EmployeeTableDTO {
 
     private int dependants;
 
-    private Long netSalary;
+    private double netSalary;
 
     public int getId() {
         return id;
@@ -43,11 +43,11 @@ public class EmployeeTableDTO {
         this.dependants = dependants;
     }
 
-    public Long getNetSalary() {
+    public double getNetSalary() {
         return netSalary;
     }
 
-    public void setNetSalary(Long netSalary) {
+    public void setNetSalary(double netSalary) {
         this.netSalary = netSalary;
     }
 }

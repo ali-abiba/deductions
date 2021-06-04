@@ -31,7 +31,7 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/salary-after-deductions", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Long> getSalaryAfterDeductions(@RequestParam("id") int id) {
+    public ResponseEntity<Double> getSalaryAfterDeductions(@RequestParam("id") int id) {
         return new ResponseEntity<>(employeeService.getSalaryAfterDeductions(id), HttpStatus.OK);
     }
 
