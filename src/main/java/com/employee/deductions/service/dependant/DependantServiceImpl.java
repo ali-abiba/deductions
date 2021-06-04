@@ -17,7 +17,7 @@ public class DependantServiceImpl implements DependantService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public void createDependant(CreateDependantDTO dependant) {
+    public Dependant createDependant(CreateDependantDTO dependant) {
         Dependant newDependant = new Dependant();
         newDependant.setFirstName(dependant.getFirstName());
         newDependant.setLastName(dependant.getLastName());
@@ -26,6 +26,6 @@ public class DependantServiceImpl implements DependantService {
         employeeRepository.findById(dependant.getEmployeeId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Employee ID"));
 
-        dependantRepository.save(newDependant);
+        return dependantRepository.save(newDependant);
     }
 }
