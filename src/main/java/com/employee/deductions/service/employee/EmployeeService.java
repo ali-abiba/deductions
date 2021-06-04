@@ -11,7 +11,7 @@ public interface EmployeeService {
 
     Employee getEmployeeById(int id);
 
-    Long getSalaryAfterDeductions(int id);
+    double getSalaryAfterDeductions(int id);
 
     List<EmployeeTableDTO> getEmployeeTableData(int id);
 

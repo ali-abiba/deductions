@@ -15,11 +15,12 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final Long SALARY = 4000L;
-    private final Long EMPLOYEE_DEDUCTION = 1000L;
-    private final Long DEPENDANT_DEDUCTION = 500L;
+    private final Long SALARY = 2000L;
+    private final Long EMPLOYEE_DEDUCTION_YEARLY = 1000L;
+    private final Long DEPENDANT_DEDUCTION_YEARLY = 500L;
     private final char DISCOUNT_ID = 'A';
 
     @Autowired
@@ -30,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public void createEmployee(CreateEmployeeDTO employee) {
         Employee newEmployee = new Employee();
-        employerRepository.findById(employee.getEmployerId())
+        Employer employer = employerRepository.findById(employee.getEmployerId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid EmployerID"));
 
         newEmployee.setId(employee.getId());
@@ -48,11 +49,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No employee with id" + id));
     }
 
-    public Long getSalaryAfterDeductions(int id) {
+    public double getSalaryAfterDeductions(int id) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No employee with id" + id));
 
-        Long salary = determineNetPay(employee);
+        double salary = determineNetPay(employee);
 
         return salary;
     }
@@ -79,25 +80,25 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.delete(employee);
     }
 
-    private long determineNetPay(Employee employee) {
-        Long salary = employee.getSalary() - determineDeductions(employee);
+    private double determineNetPay(Employee employee) {
+        double salary = employee.getSalary() - determineDeductions(employee);
 
         return salary;
     }
 
-    private long determineDeductions(Employee employee) {
-        Long deduction = EMPLOYEE_DEDUCTION * determineDiscount(employee.getFirstName().toUpperCase());
+    private double determineDeductions(Employee employee) {
+        double deduction = (EMPLOYEE_DEDUCTION_YEARLY * determineDiscount(employee.getFirstName().toUpperCase())) / 26;
 
         for(Dependant dependant: employee.getDependants()) {
-            deduction += (DEPENDANT_DEDUCTION * determineDiscount(dependant.getFirstName().toUpperCase()));
+            deduction += (DEPENDANT_DEDUCTION_YEARLY * determineDiscount(dependant.getFirstName().toUpperCase())) / 26 ;
         }
 
         return deduction;
     }
 
-    private long determineDiscount(String name) {
+    private double determineDiscount(String name) {
         if(name.charAt(0) == DISCOUNT_ID) {
-            return (long).9;
+            return .9;
         } else {
             return 1;
         }
